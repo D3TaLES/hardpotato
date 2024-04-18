@@ -6,7 +6,7 @@ class Test:
         print('Test from Emstat Pico translator')
 
 
-class Info:
+class PicoInfo:
     """
         Pending:
         * Calculate dE, sr, dt, ttot, mins and max
@@ -31,13 +31,11 @@ class Info:
 
     def limits(self, val, low, high, label, units):
         if val < low or val > high:
-            raise Exception(label + ' should be between ' + str(low) + ' ' + \
-                            units + ' and ' + str(high) + ' ' + units + \
-                            '. Received ' + str(val) + ' ' + units)
+            raise Exception(f'{label} should be between {low} {units} and {high} {units}. Received {val} {units}.')
 
     def specifications(self):
         print('Model: PalmSens Emstat Pico (emstatpico)')
-        print('Techiques available:', self.tech)
+        print('Techniques available:', self.tech)
         print('Options available:', self.options)
 
 
@@ -94,7 +92,7 @@ class CV:
         self.text = self.ini + self.pre_body + self.body
 
     def validate(self, Eini, Ev1, Ev2, Efin, sr, dE, nSweeps, sens):
-        info = Info()
+        info = PicoInfo()
         info.limits(Eini, info.E_min, info.E_max, 'Eini', 'V')
         info.limits(Ev1, info.E_min, info.E_max, 'Ev1', 'V')
         info.limits(Ev2, info.E_min, info.E_max, 'Ev2', 'V')
@@ -105,7 +103,7 @@ class CV:
 
     def bipot(self, E, sens):
         # Validate bipot:
-        info = Info()
+        info = PicoInfo()
         info.limits(E, info.E_min, info.E_max, 'E2', 'V')
         # info.limits(sens2, info.sens_min, info.sens_max, 'sens', 'A/V')
 
@@ -163,7 +161,7 @@ class IT:
         self.text = self.ini + self.pre_body + self.body
 
     def validate(self, Estep, dt, ttot, sens):
-        info = Info()
+        info = PicoInfo()
         info.limits(Estep, info.E_min, info.E_max, 'Estep', 'V')
         # info.limits(dt, info.dt_min, info.dt_max, 'dt', 's')
         # info.limits(ttot, info.ttot_min, info.ttot_max, 'ttot', 's')
@@ -171,7 +169,7 @@ class IT:
 
     def bipot(self, E, sens):
         # Validate bipot:
-        info = Info()
+        info = PicoInfo()
         info.limits(E, info.E_min, info.E_max, 'E2', 'V')
         # info.limits(sens2, info.sens_min, info.sens_max, 'sens2', 'A/V')
 
@@ -230,7 +228,7 @@ class LSV:
 
     def bipot(self, E, sens):
         # Validate bipot:
-        info = Info()
+        info = PicoInfo()
         info.limits(E, info.E_min, info.E_max, 'E2', 'V')
         # info.limits(sens2, info.sens_min, info.sens_max, 'sens', 'A/V')
 
@@ -253,7 +251,7 @@ class LSV:
         # print(self.text)
 
     def validate(self, Eini, Efin, sr, dE, sens):
-        info = Info()
+        info = PicoInfo()
         info.limits(Eini, info.E_min, info.E_max, 'Eini', 'V')
         info.limits(Efin, info.E_min, info.E_max, 'Efin', 'V')
         # info.limits(sr, info.sr_min, info.sr_max, 'sr', 'V/s')
@@ -280,6 +278,6 @@ class OCP:
         self.text = self.ini + self.pre_body + self.body
 
     def validate(self, ttot, dt):
-        info = Info()
+        info = PicoInfo()
         # info.limits(dt, info.dt_min, info.dt_max, 'dt', 's')
         # info.limits(ttot, info.ttot_min, info.ttot_max, 'ttot', 's')
